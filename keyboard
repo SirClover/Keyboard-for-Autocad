@@ -1,0 +1,53 @@
+int lineArc = 2, macro = 3, del = 4, circleD = 5;
+char enterKey = KEY_RETURN;
+
+void setup()
+{
+	Keyboard.begin();
+	pinMode(lineArc, INPUT);
+	pinMode(macro, INPUT);
+	pinMode(del, INPUT);
+	pinMode(circleD, INPUT);
+}
+
+void loop()
+{
+	if(digitalRead(macro)==HIGH)
+	{
+		if(digitalRead(lineArc)==LOW)
+		{
+			write('l');
+		}
+		if(digitalRead(del)==LOW)
+		{
+			write('b');
+		}
+		if(digitalRead(circleD)==LOW)
+		{
+			write('c');
+		}
+	}
+	else if(digitalRead(macro)==LOW)
+	{
+		if(digitalRead(lineArc)==LOW)
+		{
+			write('a');
+		}
+		if(digitalRead(del)==LOW)
+		{
+			write('b');
+		}
+		if(digitalRead(circleD)==LOW)
+		{
+			write('d');
+		}
+	}
+}
+
+void write(char order)
+{
+	Keyboard.print(order);
+	Keyboard.press(enterKey);
+	delay(400);
+	Keyboard.releaseAll();
+}
