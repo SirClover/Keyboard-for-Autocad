@@ -1,0 +1,56 @@
+int lineArc = 2, macro = 3, del = 4, circleDF = 5;
+char enterKey = KEY_RETURN;
+char order[5][10] = {
+	{"l"},
+	{"a"},
+	{"c"},
+	{"df"},
+	{"b"}
+};
+char line[10] = "l", arc[10] = "a", circle[10] = "c", Df[10] = "df", de[10] = "b"; 
+
+void setup()
+{
+	Keyboard.begin();
+	pinMode(lineArc, INPUT);
+	pinMode(macro, INPUT);
+	pinMode(del, INPUT);
+	pinMode(circleDF, INPUT);
+}
+
+void loop()
+{
+	checkKeyboard();
+}
+
+void write(int ord)
+{
+	Keyboard.print(order[ord]);
+	Keyboard.press(enterKey);
+	delay(400);
+	Keyboard.releaseAll();
+}
+
+void checkKeyboard()
+{
+	if(digitalRead(macro)==HIGH)
+	{
+		checkButton(lineArc, 0);
+		checkButton(circleDF, 2);
+		checkButton(del, 4);
+	}
+	else if(digitalRead(macro)==LOW)
+	{
+		checkButton(lineArc, 1);
+		checkButton(circleDF, 3);
+		checkButton(del, 4);
+	}
+}
+
+void checkButton(int n, int o)
+{
+	if(digitalRead(n)==LOW)
+	{
+		write(o);
+	}
+}
